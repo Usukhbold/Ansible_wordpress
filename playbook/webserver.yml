@@ -1,0 +1,46 @@
+---
+  - name: Webserver 
+    hosts: "{{ app_host }}"
+    gather_facts: "{{ facts }}"
+    become: yes
+    vars_files:
+      - ../variables/webserver_vars.yml
+    tasks:
+      - name: Ping
+        ping: 
+
+      - name: Install Packages
+        dnf:
+          name: "{{ webserver_packages }}"
+          state: latest
+
+      - name: Download Wordpress and Unarchive 
+        unarchive:
+          src: http://wordpress.org/latest.tar.gz
+          dest: /tmp/
+          remote_src: yes
+        #notify: Copy Wordpress to /var/www/html
+
+      - name: start and enable apache
+        systemd:
+          name: httpd
+          state: started
+          enabled: yes
+
+
+     
+      - name: Copy Wordpress to /var/www/html
+        copy:
+          src: /tmp/wordpress/
+          dest: /var/www/html/
+          owner: apache
+          group: apache
+          remote_src: yes
+        notify: Restart apache 
+        
+    handlers:
+      - name: Restart apache
+        systemd:
+          name: httpd
+          state: restarted    
+
