@@ -6,3 +6,4 @@ facts: yes
 
 # Task "Install Packages" Variables
 webserver_packages: ["httpd", "php", "mysql", "php-mysqlnd"]
+

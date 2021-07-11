@@ -2,3 +2,17 @@
 database_host: db_server1
 
 facts: yes
+
+# Task "Install maraidb and python3-pymysql variables"
+database_packages: ["mariadb-server", "python3-pymysql"]
+
+# Task "Set Root Password"
+root_password: 12345678
+new_root_password: sercretpassword
+
+# Task "Create Wodpress Database"
+wp_db: wpdb
+
+# Task ""
+wp_user: wpuser
+wpuser_password: verysecurepassword
