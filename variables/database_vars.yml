@@ -1,0 +1,4 @@
+# Play Variables
+database_host: db_server1
+
+facts: yes

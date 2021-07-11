@@ -2,13 +2,19 @@
 
 ### Prerequisites
 
-#### Packages requirements
+#### Package requirements
+Webserver
 ```
 Wordpress Version: 5.7.2
 PHP version: 7.4 or greater
 MySQL Version: 5.6 or greater
 MariaDB Version: 10.1 or greater
 Apache/2.4.37 (centos)
+```
+Database
+```
+Mariadb Server Version: 10.3.29
+Mysql Version: 5.6 or greater 
 ```
 #### Server Requirements
 Webserver
@@ -36,11 +42,4 @@ Setup and Manage Wordpress with Ansible
 │   ├── packages.yml
 │   └── ping.yml
 └── README.md
-```
-### Packages
-#### Webserver
-```
-PHP 7.2.24
-Apache/2.4.37 (centos)
-MySQL  Ver 8.0.21 for Linux 
 ```

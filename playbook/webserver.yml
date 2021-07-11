@@ -9,6 +9,25 @@
       - name: Ping
         ping: 
 
+      - name: Install EPEL repo
+        dnf:
+          name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+          state: installed
+          disable_gpg_check: yes
+
+      - name: Install Remi repos
+        dnf:
+          name: https://rpms.remirepo.net/enterprise/remi-release-8.rpm 
+          state: installed
+          disable_gpg_check: yes
+
+      - name: Reset dnf Remi 7.2
+        command: "dnf module reset php -y"
+
+      - name: Enable Remi 8.0
+        command: "dnf module enable php:remi-8.0 -y"
+
+
       - name: Install Packages
         dnf:
           name: "{{ webserver_packages }}"
@@ -19,12 +38,12 @@
           src: http://wordpress.org/latest.tar.gz
           dest: /tmp/
           remote_src: yes
-        #notify: Copy Wordpress to /var/www/html
+        notify: Copy Wordpress to /var/www/html
 
       - name: start and enable apache
         systemd:
           name: httpd
-          state: started
+          state: restarted
           enabled: yes
 
 
@@ -37,7 +56,7 @@
           group: apache
           remote_src: yes
         notify: Restart apache 
-        
+
     handlers:
       - name: Restart apache
         systemd:
